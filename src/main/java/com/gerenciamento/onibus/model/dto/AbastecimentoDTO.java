@@ -9,13 +9,16 @@ public class AbastecimentoDTO {
     private Long id;
     private LocalDate dataAbastecimento;
     private Integer litros;
+    private Long idResponsavel;
     private Long idOnibus;
+
 
     public AbastecimentoDTO(Abastecimento abastecimento) {
         this.id = abastecimento.getId();
         this.dataAbastecimento = abastecimento.getDataAbastecimento();
         this.litros = abastecimento.getLitros();
-        this.idOnibus= abastecimento.getOnibus().getId();
+        this.idResponsavel = abastecimento.getResponsavel().getId();
+        this.idOnibus = abastecimento.getOnibus().getId();
     }
 
     public Long getId() {
@@ -40,6 +43,14 @@ public class AbastecimentoDTO {
 
     public void setLitros(Integer litros) {
         this.litros = litros;
+    }
+
+    public Long getIdResponsavel() {
+        return idResponsavel;
+    }
+
+    public void setIdResponsavel(Long idResponsavel) {
+        this.idResponsavel = idResponsavel;
     }
 
     public Long getIdOnibus() {

@@ -20,6 +20,23 @@ public class Responsavel {
     @OneToMany(mappedBy = "responsavel")
     private List<Manutencao> manutencoes;
 
+    public Responsavel(){
+
+    }
+    public Responsavel(Long id, String nome, String cargo, List<Abastecimento> abastecimentos, List<Manutencao> manutencoes) {
+        this.id = id;
+        this.nome = nome;
+        this.cargo = cargo;
+        this.abastecimentos = abastecimentos;
+        this.manutencoes = manutencoes;
+    }
+
+    public Responsavel(Long id, String nome, String cargo) {
+        this.id = id;
+        this.nome = nome;
+        this.cargo = cargo;
+    }
+
     public Long getId() {
         return id;
     }
