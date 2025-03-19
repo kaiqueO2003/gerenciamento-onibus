@@ -64,6 +64,27 @@ public class ManutencaoService {
             throw new RuntimeException("Responsável não informado");
         }
     }
+    public Manutencao atualizarManutencao(Long id, ManuntecaoDTO manuntecaoDTO) {
+        Manutencao manutencao = manutencaoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Manutenção não encontrada"));
+
+        if (manuntecaoDTO.getResponsavel() != null && manuntecaoDTO.getResponsavel().getId() != null) {
+            Responsavel responsavel = responsavelRepository.findById(manuntecaoDTO.getResponsavel().getId())
+                    .orElseThrow(() -> new RuntimeException("Responsável não encontrado"));
+            manutencao.setResponsavel(responsavel);
+        }
+
+        if (manuntecaoDTO.getOnibus() != null && manuntecaoDTO.getOnibus().getId() != null) {
+            Onibus onibus = onibusRepository.findById(manuntecaoDTO.getOnibus().getId())
+                    .orElseThrow(() -> new RuntimeException("Ônibus não encontrado"));
+            manutencao.setOnibus(onibus);
+        }
+
+        manutencao.setDataManutencao(manuntecaoDTO.getDataManutencao());
+        manutencao.setDescricaoMantutencao(manuntecaoDTO.getDescricaoMantutencao());
+
+        return manutencaoRepository.save(manutencao);
+    }
 }
 
 

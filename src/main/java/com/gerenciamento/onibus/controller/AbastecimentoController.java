@@ -41,7 +41,11 @@ public class AbastecimentoController {
         service.abastecer(abastecimentoDTO);
         return ResponseEntity.ok().build();
     }
-
-
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AbastecimentoDTO> atualizarAbastecimento(@PathVariable Long id, @RequestBody AbastecimentoDTO abastecimentoDTO) {
+        Abastecimento abastecimentoAtualizado = service.atualizarAbastecimento(id, abastecimentoDTO);
+        return ResponseEntity.ok().body(new AbastecimentoDTO(abastecimentoAtualizado));
+    }
+    
 
 }

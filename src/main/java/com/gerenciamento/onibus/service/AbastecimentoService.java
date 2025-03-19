@@ -62,4 +62,28 @@ public class AbastecimentoService {
             throw new RuntimeException("Responsável não informado");
         }
     }
+    public Abastecimento atualizarAbastecimento(Long id, AbastecimentoDTO abastecimentoDTO) {
+        Abastecimento abastecimento = abastecimentoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Abastecimento não encontrado"));
+
+        if (abastecimentoDTO.getDataAbastecimento() != null) {
+            abastecimento.setDataAbastecimento(abastecimentoDTO.getDataAbastecimento());
+        }
+        if (abastecimentoDTO.getLitros() != null) {
+            abastecimento.setLitros(abastecimentoDTO.getLitros());
+        }
+        if (abastecimentoDTO.getResponsavel() != null && abastecimentoDTO.getResponsavel().getId() != null) {
+            Responsavel responsavel = responsavelRepository.findById(abastecimentoDTO.getResponsavel().getId())
+                    .orElseThrow(() -> new RuntimeException("Responsável não encontrado"));
+            abastecimento.setResponsavel(responsavel);
+        }
+        if (abastecimentoDTO.getOnibus() != null && abastecimentoDTO.getOnibus().getId() != null) {
+            Onibus onibus = onibusRepository.findById(abastecimentoDTO.getOnibus().getId())
+                    .orElseThrow(() -> new RuntimeException("Ônibus não encontrado"));
+            abastecimento.setOnibus(onibus);
+        }
+
+        return abastecimentoRepository.save(abastecimento);
+    }
+
 }

@@ -42,6 +42,11 @@ public class ManutencaoController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ManuntecaoDTO> atualizarManutencao(@PathVariable Long id, @RequestBody ManuntecaoDTO manuntecaoDTO) {
+        Manutencao manutencaoAtualizada = service.atualizarManutencao(id, manuntecaoDTO);
+        return ResponseEntity.ok().body(new ManuntecaoDTO(manutencaoAtualizada));
+    }
 
 }
 
