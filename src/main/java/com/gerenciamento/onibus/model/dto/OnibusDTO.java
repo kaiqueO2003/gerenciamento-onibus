@@ -4,9 +4,7 @@ import com.gerenciamento.onibus.model.entity.Onibus;
 import lombok.*;
 
 import java.time.LocalDate;
-@Getter
-@Setter
-@NoArgsConstructor
+
 public class OnibusDTO {
     private Long id;
     private String prefixo;

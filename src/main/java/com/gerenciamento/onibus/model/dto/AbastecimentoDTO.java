@@ -1,7 +1,6 @@
 package com.gerenciamento.onibus.model.dto;
 
 import com.gerenciamento.onibus.model.entity.Abastecimento;
-import com.gerenciamento.onibus.model.entity.Onibus;
 
 import java.time.LocalDate;
 
@@ -12,12 +11,11 @@ public class AbastecimentoDTO {
     private ResponsavelDTO responsavel;
     private OnibusDTO onibus;
 
-    // Construtor que recebe a entidade e converte para DTO
     public AbastecimentoDTO(Abastecimento abastecimento) {
         this.id = abastecimento.getId();
         this.dataAbastecimento = abastecimento.getDataAbastecimento();
         this.litros = abastecimento.getLitros();
-        this.responsavel = new ResponsavelDTO(abastecimento.getResponsavel());  // Converte a entidade Responsavel para DTO
+        this.responsavel = new ResponsavelDTO(abastecimento.getResponsavel());
         this.onibus = new OnibusDTO(abastecimento.getOnibus());
     }
     public AbastecimentoDTO(){

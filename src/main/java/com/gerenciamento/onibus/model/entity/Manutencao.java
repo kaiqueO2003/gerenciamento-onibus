@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
-@Data
+
 @Table(name = "manutencao")
 public class Manutencao {
     @Id
@@ -60,5 +60,13 @@ public class Manutencao {
 
     public void setResponsavel(Responsavel responsavel) {
         this.responsavel = responsavel;
+    }
+
+    public Onibus getOnibus() {
+        return onibus;
+    }
+
+    public void setOnibus(Onibus onibus) {
+        this.onibus = onibus;
     }
 }
