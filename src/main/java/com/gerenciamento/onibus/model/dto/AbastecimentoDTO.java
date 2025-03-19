@@ -9,18 +9,20 @@ public class AbastecimentoDTO {
     private Long id;
     private LocalDate dataAbastecimento;
     private Integer litros;
-    private Long idResponsavel;
-    private Long idOnibus;
+    private ResponsavelDTO responsavel;
+    private OnibusDTO onibus;
 
-
+    // Construtor que recebe a entidade e converte para DTO
     public AbastecimentoDTO(Abastecimento abastecimento) {
         this.id = abastecimento.getId();
         this.dataAbastecimento = abastecimento.getDataAbastecimento();
         this.litros = abastecimento.getLitros();
-        this.idResponsavel = abastecimento.getResponsavel().getId();
-        this.idOnibus = abastecimento.getOnibus().getId();
+        this.responsavel = new ResponsavelDTO(abastecimento.getResponsavel());  // Converte a entidade Responsavel para DTO
+        this.onibus = new OnibusDTO(abastecimento.getOnibus());
     }
+    public AbastecimentoDTO(){
 
+    }
     public Long getId() {
         return id;
     }
@@ -45,19 +47,19 @@ public class AbastecimentoDTO {
         this.litros = litros;
     }
 
-    public Long getIdResponsavel() {
-        return idResponsavel;
+    public ResponsavelDTO getResponsavel() {
+        return responsavel;
     }
 
-    public void setIdResponsavel(Long idResponsavel) {
-        this.idResponsavel = idResponsavel;
+    public void setResponsavel(ResponsavelDTO responsavel) {
+        this.responsavel = responsavel;
     }
 
-    public Long getIdOnibus() {
-        return idOnibus;
+    public OnibusDTO getOnibus() {
+        return onibus;
     }
 
-    public void setIdOnibus(Long idOnibus) {
-        this.idOnibus = idOnibus;
+    public void setOnibus(OnibusDTO onibus) {
+        this.onibus = onibus;
     }
 }

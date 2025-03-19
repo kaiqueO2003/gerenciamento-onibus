@@ -22,6 +22,9 @@ public class OnibusDTO {
         this.dataUltimoAbastecimento = onibus.getDataUltimoAbastecimento();
     }
 
+    public OnibusDTO(){
+
+    }
     public Long getId() {
         return id;
     }

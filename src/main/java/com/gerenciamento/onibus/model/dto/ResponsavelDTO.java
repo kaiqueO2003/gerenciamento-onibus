@@ -17,6 +17,9 @@ public class ResponsavelDTO {
 
     }
 
+    public ResponsavelDTO(){
+
+    }
     public Long getId() {
         return id;
     }

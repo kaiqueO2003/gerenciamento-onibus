@@ -1,21 +1,24 @@
 package com.gerenciamento.onibus.config;
 
 import com.gerenciamento.onibus.model.entity.Onibus;
+import com.gerenciamento.onibus.model.entity.Responsavel;
 import com.gerenciamento.onibus.repository.OnibusRepository;
+import com.gerenciamento.onibus.repository.ResponsavelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class DatabasePopulator implements CommandLineRunner {
+@Autowired
+OnibusRepository onibusRepository;
+@Autowired
+     ResponsavelRepository responsavelRepository;
 
-    private final OnibusRepository onibusRepository;
-
-    public DatabasePopulator(OnibusRepository onibusRepository) {
-        this.onibusRepository = onibusRepository;
-    }
 
     @Override
     public void run(String... args) {
@@ -30,5 +33,9 @@ public class DatabasePopulator implements CommandLineRunner {
             onibusRepository.saveAll(onibusList);
             System.out.println("Ônibus inseridos no banco: " + onibusList);
         }
+
+        Responsavel edmilson = new Responsavel(null, "Edimilson", "Encarregado");
+        responsavelRepository.saveAll(Arrays.asList(edmilson));
+
     }
 }

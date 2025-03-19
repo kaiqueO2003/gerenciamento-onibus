@@ -6,6 +6,7 @@ import com.gerenciamento.onibus.model.entity.Abastecimento;
 import com.gerenciamento.onibus.model.entity.Onibus;
 import com.gerenciamento.onibus.service.AbastecimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,16 +37,11 @@ public class AbastecimentoController {
         return ResponseEntity.noContent().build();
     }
     @PostMapping
-    public ResponseEntity<AbastecimentoDTO> abastecer(@RequestBody AbastecimentoDTO abastecimentoDTO) {
-        AbastecimentoDTO result = service.Abastecer(abastecimentoDTO);
-        return ResponseEntity.ok().body(result);
+    public ResponseEntity<Void> abastecer(@RequestBody AbastecimentoDTO abastecimentoDTO) {
+        service.abastecer(abastecimentoDTO);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<AbastecimentoDTO> update(@RequestBody AbastecimentoDTO abastecimentoDTO, @PathVariable Long id) {
-        abastecimentoDTO.setId(id);
-        AbastecimentoDTO updatedDTO = service.update(abastecimentoDTO);
-        return ResponseEntity.ok().body(updatedDTO);
-    }
+
 
 }

@@ -38,48 +38,28 @@ public class AbastecimentoService {
         abastecimentoRepository.deleteById(id);
     }
 
-    public AbastecimentoDTO Abastecer(AbastecimentoDTO abastecimentoDTO) {
-        Abastecimento abastecimento = new Abastecimento();
-        abastecimento.setDataAbastecimento(abastecimentoDTO.getDataAbastecimento());
-        abastecimento.setLitros(abastecimentoDTO.getLitros());
-        Responsavel responsavel = responsavelRepository.findById(abastecimentoDTO.getIdResponsavel())
-                .orElseThrow(() -> new RuntimeException("Responsável não encontrado"));
-        Onibus onibus = onibusRepository.findById(abastecimentoDTO.getIdOnibus())
-                .orElseThrow(() -> new RuntimeException("Ônibus não encontrado"));
-        abastecimento.setResponsavel(responsavel);
-        abastecimento.setOnibus(onibus);
-        Abastecimento salvo = abastecimentoRepository.save(abastecimento);
-        return new AbastecimentoDTO(salvo);
-    }
+    public void abastecer(AbastecimentoDTO abastecimentoDTO) {
+        if (abastecimentoDTO.getResponsavel() != null && abastecimentoDTO.getResponsavel().getId() != null) {
+            Long idResponsavel = abastecimentoDTO.getResponsavel().getId();
+            Responsavel responsavel = responsavelRepository.findById(idResponsavel)
+                    .orElseThrow(() -> new RuntimeException("Responsável não encontrado"));
 
-    public AbastecimentoDTO update(AbastecimentoDTO abastecimentoDTO) {
-        Abastecimento newObj = findById(abastecimentoDTO.getId());
+            if (abastecimentoDTO.getOnibus() != null && abastecimentoDTO.getOnibus().getId() != null) {
+                Long idOnibus = abastecimentoDTO.getOnibus().getId();
+                Onibus onibus = onibusRepository.findById(idOnibus)
+                        .orElseThrow(() -> new RuntimeException("Ônibus não encontrado"));
 
-        newObj.setDataAbastecimento(abastecimentoDTO.getDataAbastecimento());
-        newObj.setLitros(abastecimentoDTO.getLitros());
-
-        Responsavel responsavel = responsavelRepository.findById(abastecimentoDTO.getIdResponsavel())
-                .orElseThrow(() -> new ObjectNotFoundException("Responsável com ID " + abastecimentoDTO.getIdResponsavel() + " não encontrado"));
-        Onibus onibus = onibusRepository.findById(abastecimentoDTO.getIdOnibus())
-                .orElseThrow(() -> new ObjectNotFoundException("Ônibus com ID " + abastecimentoDTO.getIdOnibus() + " não encontrado"));
-        newObj.setResponsavel(responsavel);
-        newObj.setOnibus(onibus);
-        Abastecimento updatedAbastecimento = abastecimentoRepository.save(newObj);
-        return new AbastecimentoDTO(updatedAbastecimento);
-    }
-
-    public Abastecimento fromDTO(AbastecimentoDTO abastecimentoDTO) {
-        Responsavel responsavel = responsavelRepository.findById(abastecimentoDTO.getIdResponsavel())
-                .orElseThrow(() -> new ObjectNotFoundException("Responsável com ID " + abastecimentoDTO.getIdResponsavel() + " não encontrado"));
-        Onibus onibus = onibusRepository.findById(abastecimentoDTO.getIdOnibus())
-                .orElseThrow(() -> new ObjectNotFoundException("Ônibus com ID " + abastecimentoDTO.getIdOnibus() + " não encontrado"));
-
-        return new Abastecimento(
-                abastecimentoDTO.getId(),
-                abastecimentoDTO.getDataAbastecimento(),
-                abastecimentoDTO.getLitros(),
-                responsavel,
-                onibus
-        );
+                Abastecimento abastecimento = new Abastecimento();
+                abastecimento.setDataAbastecimento(abastecimentoDTO.getDataAbastecimento());
+                abastecimento.setLitros(abastecimentoDTO.getLitros());
+                abastecimento.setResponsavel(responsavel);
+                abastecimento.setOnibus(onibus);
+                abastecimentoRepository.save(abastecimento);
+            } else {
+                throw new RuntimeException("Ônibus não informado");
+            }
+        } else {
+            throw new RuntimeException("Responsável não informado");
+        }
     }
 }
